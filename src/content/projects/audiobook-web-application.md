@@ -1,7 +1,7 @@
 ---
 title: Audibook Web Application
 poster: {
-    src: https://ik.imagekit.io/moonwr/audibook.png?ik-obj-version=vXoJdHebR8ctC8w3eShmocWTWWMxB4GM&updatedAt=1763121689802&,
+    src: https://ik.imagekit.io/moonwr/audibook.png?,
     alt: Audibook Web Application
 }
 tags: ["Microservice", "Docker", "PHP", "Typescript", "Java", "REST", "SOAP", "Docker Compose", "Web", "Vite", "ReactTS", "SPA"]

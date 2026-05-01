@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -10,13 +9,17 @@
   --color-ink-dim: #D9D9D9;
   --color-accent: #FA4430;
   --color-accent-deep: #BA3A2C;
+
+  --font-sans: 'Lexend', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Roboto Mono', ui-monospace, monospace;
 }
 
 @layer base {
   html {
     background: var(--color-bg);
     color: var(--color-ink);
-    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-sans);
   }
   body {
     min-height: 100dvh;

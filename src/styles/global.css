@@ -15,6 +15,18 @@
   --font-mono: 'Roboto Mono', ui-monospace, monospace;
 }
 
+:root {
+  --pagefind-ui-scale: 0.5;
+  --pagefind-ui-primary: #FA4430;
+  --pagefind-ui-text: #F6F4F1;
+  --pagefind-ui-background: #171717;
+  --pagefind-ui-border: rgba(217, 217, 217, 0.2);
+  --pagefind-ui-tag: #1E1E1E;
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 8px;
+  --pagefind-ui-font: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+}
+
 @layer base {
   html {
     background: var(--color-bg);

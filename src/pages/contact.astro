@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Contact" description="Contact Addin Munawwar (Cadevue) for collaboration, project inquiries, or just to say hi!">
+  <div class="space-y-8">
+    <div>
+      <h1 class="text-4xl font-semibold text-ink mb-2">Let's Get in Touch!</h1>
+      <p class="text-ink-dim">Write me a message from the form below.</p>
+    </div>
+
+    <form
+      class="space-y-5"
+      action="https://formspree.io/f/mqaekrby"
+      method="post"
+    >
+      <div class="space-y-1.5">
+        <label for="name" class="block text-sm font-medium text-ink">Name</label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          placeholder="John Doe"
+          required
+          class="w-full rounded-lg border border-bg-deep bg-ink px-4 py-2.5 text-sm text-bg-deep placeholder:text-bg/50 focus:border-accent-deep focus:outline-none focus:ring-accent-deep transition-colors"
+        />
+      </div>
+
+      <div class="space-y-1.5">
+        <label for="email" class="block text-sm font-medium text-ink">Email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="johndoe@company.org"
+          required
+          class="w-full rounded-lg border border-bg-deep bg-ink px-4 py-2.5 text-sm text-bg-deep placeholder:text-bg/50 focus:border-accent-deep focus:outline-none focus:ring-accent-deep transition-colors"
+        />
+      </div>
+
+      <div class="space-y-1.5">
+        <label for="message" class="block text-sm font-medium text-ink">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          placeholder="Hi, Addin! Let's cook something together."
+          required
+          class="w-full rounded-lg border border-bg-deep bg-ink px-4 py-2.5 text-sm text-bg-deep placeholder:text-bg/50 focus:border-accent-deep focus:outline-none focus:ring-accent-deep transition-colors resize-none"
+        ></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="px-4 py-2 bg-accent hover:bg-accent-deep text-ink font-medium text-sm rounded-lg transition-colors cursor-pointer"
+      >
+        Send Message
+      </button>
+    </form>
+  </div>
+</Base>

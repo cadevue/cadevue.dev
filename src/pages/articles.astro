@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+// import Search from 'astro-pagefind/components/Search';
+import ArticlePreview from '../components/ArticlePreview.astro';
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const sorted = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<Base title="Articles">
+  <div class="space-y-10">
+    <div>
+      <h1 class="text-4xl font-semibold text-ink mb-1">Find Articles</h1>
+      <!-- <p class="text-sm text-ink-dim">Search or browse by tag and series.</p> -->
+    </div>
+
+    <!-- <Search id="search" className="pagefind-ui" uiOptions={{ showImages: false }} /> -->
+
+    <div id="active-filter" class="hidden text-sm text-ink-dim">
+      Filtering by: <span id="filter-label" class="text-accent font-medium"></span>
+      <a href="/articles" class="ml-2 underline hover:text-ink">clear</a>
+    </div>
+
+    <div id="article-list" class="space-y-8">
+      {sorted.map(post => <ArticlePreview post={post} />)}
+    </div>
+
+    <p id="no-results" class="hidden text-ink-dim text-sm">No articles match this filter.</p>
+  </div>
+</Base>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const tag = params.get('tag');
+  const series = params.get('series');
+
+  if (tag || series) {
+    const filterEl = document.getElementById('active-filter');
+    const labelEl = document.getElementById('filter-label');
+    if (filterEl && labelEl) {
+      filterEl.classList.remove('hidden');
+      labelEl.textContent = tag ? `#${tag}` : `series: ${series}`;
+    }
+
+    const articles = document.querySelectorAll<HTMLElement>('#article-list article');
+    let visible = 0;
+    articles.forEach(article => {
+      const articleTags = article.dataset.tags?.split(',').filter(Boolean) ?? [];
+      const articleSeries = article.dataset.series ?? '';
+      const tagMatch = !tag || articleTags.includes(tag);
+      const seriesMatch = !series || articleSeries === series;
+      if (tagMatch && seriesMatch) {
+        visible++;
+      } else {
+        article.style.display = 'none';
+      }
+    });
+
+    if (visible === 0) {
+      document.getElementById('no-results')?.classList.remove('hidden');
+    }
+  }
+</script>

@@ -21,4 +21,6 @@ export default defineConfig({
     defaultStrategy: 'viewport',
     prefetchAll: true,
   },
+
+  site: 'https://cadevue.dev',
 });

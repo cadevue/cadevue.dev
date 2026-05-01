@@ -1,20 +1,17 @@
 {
-  "name": "cadevue",
+  "name": "cadevue.dev",
   "type": "module",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
-    "host": "astro dev --host",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.2.1",
-    "@astrojs/tailwind": "^5.1.4",
-    "astro": "^5.1.7",
-    "cadevue": "file:",
-    "tailwindcss": "^3.4.17",
-    "typescript": "^5.7.3"
+    "astro": "^6.2.1"
   }
 }

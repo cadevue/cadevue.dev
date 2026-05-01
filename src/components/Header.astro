@@ -1,12 +1,12 @@
 ---
 const pathname = Astro.url.pathname;
-const brand = pathname === '/' ? '~/cadevue' : '~' + pathname.replace(/\/$/, '');
+const brand = pathname === '/' ? '~' : '~' + pathname.replace(/\/$/, '');
 ---
 <header class="bg-bg-deep">
   <nav class="mx-auto flex max-w-360 items-center justify-between px-6 py-5">
-    <a href="/" class="font-bold font-body text-ink text-lg"><span class="text-accent">カ &nbsp;</span>{brand}</a>
+    <span class="font-bold font-body text-ink text-lg"><span class="text-accent">カ &nbsp;</span>{brand}</span>
     <ul class="flex gap-6 text-base">
-      <li><a href="/" class="text-ink hover:text-accent">Home</a></li>
+      <li><a href="/" class="text-ink hover:text-accent">About</a></li>
       <li><a href="/articles" class="text-ink hover:text-accent">Articles</a></li>
       <li><a href="/contact" class="text-ink hover:text-accent">Contact</a></li>
     </ul>

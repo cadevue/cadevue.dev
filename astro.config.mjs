@@ -9,6 +9,10 @@ import pagefind from 'astro-pagefind';
 export default defineConfig({
   integrations: [sitemap(), expressiveCode(), pagefind()],
 
+  redirects: {
+    '/about-me': '/',
+  },
+
   vite: {
     plugins: [tailwindcss()]
   }

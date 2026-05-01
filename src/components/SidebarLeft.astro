@@ -1,43 +1,41 @@
 ---
 import { Image } from "astro:assets";
+import { getCollection, type CollectionEntry } from "astro:content";
 import avatar from "../assets/avatar.jpg";
 
-// Static placeholder. Wired from `series` + `blog` collections in Phase 6.
-// Series order = user-defined `order` field on series JSON (see Phase 6 schema).
-const placeholderSeries = [
-  {
-    title: 'Intro',
-    posts: [
-      { title: 'About Me', slug: '#' },
-    ],
-  },
-  {
-    title: 'Game Dev',
-    posts: [
-      { title: 'Sample post a', slug: '#' },
-      { title: 'Sample post b', slug: '#' },
-    ],
-  },
-  {
-    title: 'Colleges',
-    posts: [
-      { title: 'Sample college project', slug: '#' },
-    ],
-  },
-];
+type Blog = CollectionEntry<'blog'>;
+type Series = CollectionEntry<'series'>;
+
+const allSeries = await getCollection('series');
+const allPosts = await getCollection('blog', ({ data }: Blog) => !data.draft);
+
+const sortedSeries = allSeries.sort((a: Series, b: Series) => b.data.priority - a.data.priority);
+
+const sidebarData = sortedSeries
+  .map((s: Series) => ({
+    series: s,
+    posts: allPosts
+      .filter((p: Blog) => p.data.series === s.id)
+      .sort((a: Blog, b: Blog) => (a.data.seriesOrder ?? Infinity) - (b.data.seriesOrder ?? Infinity)),
+  }))
+  .filter(({ posts }: { posts: Blog[] }) => posts.length > 0);
 ---
 <aside class="text-base text-ink-dim">
-  <div class="mb-8 flex mr-12">
-    <Image src={avatar} alt="Cadevue Avatar" aria-label="Cadevue Avatar" class="w-full aspect-square rounded-full" loading="eager" fetchpriority="high"/>
+  <div class="mb-8 flex mr-16">
+    <Image src={avatar} alt="Cadevue Avatar" aria-label="Cadevue Avatar" class="w-full aspect-square rounded-full" loading="eager" fetchpriority="high" />
   </div>
 
   <nav class="space-y-6">
-    {placeholderSeries.map((s) => (
+    {sidebarData.map(({ series: s, posts }: { series: Series; posts: Blog[] }) => (
       <section>
-        <h2 class="mb-2 font-semibold text-ink">{s.title}</h2>
+        <h2 class="mb-2 font-semibold text-ink">{s.data.title}</h2>
         <ul class="space-y-2">
-          {s.posts.map((p) => (
-            <li><a href={p.slug} class="hover:text-accent">{p.title}</a></li>
+          {posts.map((p: Blog) => (
+            <li>
+              <a href={'/' + p.id.replace(/\/index$/, '')} class="hover:text-accent">
+                {p.data.title}
+              </a>
+            </li>
           ))}
         </ul>
       </section>

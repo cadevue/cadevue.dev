@@ -1,0 +1,46 @@
+---
+import { Image } from "astro:assets";
+import avatar from "../assets/avatar.jpg";
+
+// Static placeholder. Wired from `series` + `blog` collections in Phase 6.
+// Series order = user-defined `order` field on series JSON (see Phase 6 schema).
+const placeholderSeries = [
+  {
+    title: 'Intro',
+    posts: [
+      { title: 'About Me', slug: '#' },
+    ],
+  },
+  {
+    title: 'Game Dev',
+    posts: [
+      { title: 'Sample post a', slug: '#' },
+      { title: 'Sample post b', slug: '#' },
+    ],
+  },
+  {
+    title: 'Colleges',
+    posts: [
+      { title: 'Sample college project', slug: '#' },
+    ],
+  },
+];
+---
+<aside class="text-base text-ink-dim">
+  <div class="mb-8 flex mr-12">
+    <Image src={avatar} alt="Cadevue Avatar" aria-label="Cadevue Avatar" class="w-full aspect-square rounded-full" loading="eager" fetchpriority="high"/>
+  </div>
+
+  <nav class="space-y-6">
+    {placeholderSeries.map((s) => (
+      <section>
+        <h2 class="mb-2 font-semibold text-ink">{s.title}</h2>
+        <ul class="space-y-2">
+          {s.posts.map((p) => (
+            <li><a href={p.slug} class="hover:text-accent">{p.title}</a></li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </nav>
+</aside>

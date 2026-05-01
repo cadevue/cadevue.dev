@@ -1,0 +1,32 @@
+---
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings?: MarkdownHeading[];
+  seriesId?: string;
+}
+
+const { headings = [], seriesId } = Astro.props;
+const tocItems = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+<aside class="text-base text-ink-dim">
+  {tocItems.length > 0 && (
+    <section class="mb-8">
+      <h2 class="mb-3 text-sm uppercase tracking-wider text-ink">on this page</h2>
+      <ul class="space-y-2">
+        {tocItems.map((h) => (
+          <li class={h.depth === 3 ? 'pl-4' : ''}>
+            <a href={`#${h.slug}`} class="hover:text-accent">{h.text}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {seriesId && (
+    <section>
+      <h2 class="mb-3 text-sm uppercase tracking-wider text-ink">series</h2>
+      <p class="text-sm italic opacity-60">— progress wired Phase 6 —</p>
+    </section>
+  )}
+</aside>

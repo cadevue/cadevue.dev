@@ -13,7 +13,8 @@ export async function getStaticPaths() {
 type Props = { post: CollectionEntry<'blog'> };
 
 const { post } = Astro.props;
-const { Content, headings } = await render(post);
+const { Content, headings, remarkPluginFrontmatter } = await render(post);
+const minutesRead: string = remarkPluginFrontmatter.minutesRead;
 
 const seriesEntry = post.data.series ? await getEntry('series', post.data.series) : undefined;
 
@@ -53,6 +54,8 @@ if (post.data.series && post.data.seriesOrder !== undefined) {
           </span>
         </>
       )}
+      <span aria-hidden="true">·</span>
+      <span>{minutesRead}</span>
     </div>
     <div class="text-ink-dim leading-relaxed space-y-4">
       <Content />

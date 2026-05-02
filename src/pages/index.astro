@@ -4,7 +4,8 @@ import Base from '../layouts/Base.astro';
 
 const post = await getEntry('blog', 'about-me');
 if (!post) throw new Error("'about-me' blog entry not found");
-const { Content, headings } = await render(post);
+const { Content, headings, remarkPluginFrontmatter } = await render(post);
+const minutesRead: string = remarkPluginFrontmatter.minutesRead;
 
 const seriesEntry = post.data.series ? await getEntry('series', post.data.series) : undefined;
 
@@ -44,6 +45,8 @@ if (post.data.series && post.data.seriesOrder !== undefined) {
           </span>
         </>
       )}
+      <span aria-hidden="true">·</span>
+      <span>{minutesRead}</span>
     </div>
     <div class="text-ink-dim leading-relaxed space-y-4">
       <Content />

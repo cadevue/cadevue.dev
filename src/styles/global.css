@@ -80,11 +80,16 @@
     text-decoration: underline;
   }
   article code {
-    font-size:       var(--text-sm);
-    font-weight:     400;
-    line-height:     inherit;
-    color:           var(--color-ink);
-    text-decoration: none;
+    font-size:        var(--text-sm);
+    font-family:      var(--font-mono);
+    font-weight:      400;
+    line-height:      inherit;
+    color:            var(--color-ink);
+    text-decoration:  none;
+    background-color: var(--color-bg-deep);
+    padding:          2px 8px;
+    margin:           0 2px;
+    border-radius:    0.25rem;
   }
   article pre {
     font-size:       var(--text-sm);

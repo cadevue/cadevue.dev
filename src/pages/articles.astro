@@ -30,34 +30,43 @@ const sorted = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.va
 </Base>
 
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const tag = params.get('tag');
-  const series = params.get('series');
+  function applyFilter() {
+    const params = new URLSearchParams(window.location.search);
+    const tag = params.get('tag');
+    const series = params.get('series');
 
-  if (tag || series) {
     const filterEl = document.getElementById('active-filter');
     const labelEl = document.getElementById('filter-label');
-    if (filterEl && labelEl) {
-      filterEl.classList.remove('hidden');
-      labelEl.textContent = tag ? `#${tag}` : `series: ${series}`;
-    }
-
+    const noResults = document.getElementById('no-results');
     const articles = document.querySelectorAll<HTMLElement>('#article-list article');
-    let visible = 0;
-    articles.forEach(article => {
-      const articleTags = article.dataset.tags?.split(',').filter(Boolean) ?? [];
-      const articleSeries = article.dataset.series ?? '';
-      const tagMatch = !tag || articleTags.includes(tag);
-      const seriesMatch = !series || articleSeries === series;
-      if (tagMatch && seriesMatch) {
-        visible++;
-      } else {
-        article.style.display = 'none';
-      }
-    });
 
-    if (visible === 0) {
-      document.getElementById('no-results')?.classList.remove('hidden');
+    if (!filterEl || !articles.length) return;
+
+    if (tag || series) {
+      filterEl.classList.remove('hidden');
+      if (labelEl) labelEl.textContent = tag ? `#${tag}` : `series: ${series}`;
+
+      let visible = 0;
+      articles.forEach(article => {
+        article.style.display = '';
+        const articleTags = article.dataset.tags?.split(',').filter(Boolean) ?? [];
+        const articleSeries = article.dataset.series ?? '';
+        const tagMatch = !tag || articleTags.includes(tag);
+        const seriesMatch = !series || articleSeries === series;
+        if (tagMatch && seriesMatch) {
+          visible++;
+        } else {
+          article.style.display = 'none';
+        }
+      });
+
+      noResults?.classList.toggle('hidden', visible > 0);
+    } else {
+      filterEl.classList.add('hidden');
+      articles.forEach(article => { article.style.display = ''; });
+      noResults?.classList.add('hidden');
     }
   }
+
+  document.addEventListener('astro:page-load', applyFilter);
 </script>

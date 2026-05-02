@@ -11,9 +11,10 @@ interface Props {
   description?: string;
   headings?: MarkdownHeading[];
   seriesId?: string;
+  nextPost?: { title: string; slug: string };
 }
 
-const { title, description, headings, seriesId } = Astro.props;
+const { title, description, headings, seriesId, nextPost } = Astro.props;
 ---
 <html lang="en" class="dark">
   <head>
@@ -24,25 +25,27 @@ const { title, description, headings, seriesId } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-    <title>{title} — Cadevue's Journal</title>
+    <title>{title} - Cadevue's Journal</title>
     {description && <meta name="description" content={description} />}
 
     <ClientRouter fallback="swap"/>
   </head>
   <body class="flex flex-col lg:h-dvh lg:overflow-hidden" transition:animate={fade({ duration: '0.1s' })}>
     <Header />
-    <div class="lg:flex-1 lg:min-h-0 lg:flex lg:gap-10 lg:mx-auto lg:w-full lg:max-w-360 lg:px-7 lg:overflow-y-auto">
-      <!-- Left sidebar: desktop only, independent scroll region -->
-      <div class="hidden lg:block lg:w-64 lg:shrink-0 lg:overflow-y-auto lg:py-10">
+    <div class="lg:flex-1 lg:min-h-0 lg:flex lg:gap-10 lg:mx-auto lg:w-full lg:max-w-360 lg:px-7 lg:overflow-hidden">
+      <!-- Left sidebar: desktop only, independent scroll -->
+      <div class="hidden lg:block lg:w-64 lg:shrink-0 lg:overflow-y-auto lg:[scrollbar-gutter:stable] lg:py-10">
         <SidebarLeft />
       </div>
       <!-- Right region: main + right sidebar scroll together -->
-      <div class="lg:flex-1 lg:min-w-0">
-        <div class="mx-auto grid max-w-3xl gap-10 px-7 py-10 lg:max-w-none lg:px-0 lg:grid-cols-[minmax(0,1fr)_16rem]">
+      <div id="content-scroll" class="lg:flex-1 lg:min-w-0 lg:overflow-y-auto lg:[scrollbar-gutter:stable]">
+        <div class="mx-auto grid max-w-3xl gap-10 px-7 py-10 lg:max-w-none lg:px-0 lg:grid-cols-[minmax(0,1fr)_14rem]">
           <main class="min-w-0">
             <slot />
           </main>
-          <SidebarRight headings={headings} seriesId={seriesId} />
+          <div class="hidden lg:block lg:sticky lg:top-10 lg:self-start">
+            <SidebarRight headings={headings} seriesId={seriesId} nextPost={nextPost} />
+          </div>
         </div>
       </div>
     </div>

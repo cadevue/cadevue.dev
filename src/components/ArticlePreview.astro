@@ -14,7 +14,7 @@ const date = pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'shor
   data-tags={tags.join(',')}
   data-series={series ?? ''}
 >
-  <a href={url} class="block group">
+  <a href={url} class="block group no-underline w-fit">
     <h2 class="text-2xl font-semibold text-ink group-hover:text-accent transition-colors mb-1 underline underline-offset-4">{title}</h2>
   </a>
   <p class="text-ink-dim text-sm leading-relaxed mb-3">{description}</p>

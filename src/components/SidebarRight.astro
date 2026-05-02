@@ -4,29 +4,40 @@ import type { MarkdownHeading } from 'astro';
 interface Props {
   headings?: MarkdownHeading[];
   seriesId?: string;
+  nextPost?: { title: string; slug: string };
 }
 
-const { headings = [], seriesId } = Astro.props;
-const tocItems = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const { headings = [], seriesId, nextPost } = Astro.props;
+const tocItems = headings.filter((h) => h.depth === 2);
 ---
-<aside class="text-base text-ink-dim">
-  {tocItems.length > 0 && (
-    <section class="mb-8">
+<aside class="text-base text-ink-dim flex flex-col gap-8">
+  {seriesId && (
+    <section>
       <h2 class="mb-3 text-sm uppercase tracking-wider text-ink">on this page</h2>
       <ul class="space-y-2">
+        <li>
+          <button
+            class="bg-transparent border-0 p-0 cursor-pointer text-accent hover:text-accent-deep"
+            onclick="const el=document.getElementById('content-scroll');if(el)el.scrollTo({top:0,behavior:'smooth'});else window.scrollTo({top:0,behavior:'smooth'});"
+          >
+            Top
+          </button>
+        </li>
         {tocItems.map((h) => (
-          <li class={h.depth === 3 ? 'pl-4' : ''}>
-            <a href={`#${h.slug}`} class="hover:text-accent">{h.text}</a>
+          <li>
+            <a href={`#${h.slug}`}>{h.text}</a>
           </li>
         ))}
       </ul>
     </section>
   )}
 
-  {seriesId && (
+  {seriesId && nextPost && (
     <section>
-      <h2 class="mb-3 text-sm uppercase tracking-wider text-ink">series</h2>
-      <p class="text-sm italic opacity-60">— progress wired Phase 6 —</p>
+      <h2 class="mb-3 text-sm uppercase tracking-wider text-ink">next read</h2>
+      <a href={`/${nextPost.slug}`} class="leading-snug block">
+        {nextPost.title}
+      </a>
     </section>
   )}
 </aside>

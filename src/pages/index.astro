@@ -1,19 +1,50 @@
 ---
-import { getEntry, render } from 'astro:content';
+import { getEntry, getCollection, render, type CollectionEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 
 const post = await getEntry('blog', 'about-me');
 if (!post) throw new Error("'about-me' blog entry not found");
 const { Content, headings } = await render(post);
+
+const seriesEntry = post.data.series ? await getEntry('series', post.data.series) : undefined;
+
+let nextPost: { title: string; slug: string } | undefined;
+if (post.data.series && post.data.seriesOrder !== undefined) {
+  const seriesPosts = await getCollection(
+    'blog',
+    ({ data }: CollectionEntry<'blog'>) =>
+      !data.draft && data.series === post.data.series && data.seriesOrder !== undefined
+  );
+  seriesPosts.sort((a, b) => (a.data.seriesOrder ?? Infinity) - (b.data.seriesOrder ?? Infinity));
+  const idx = seriesPosts.findIndex((p) => p.id === post.id);
+  if (idx !== -1 && idx < seriesPosts.length - 1) {
+    const next = seriesPosts[idx + 1];
+    nextPost = { title: next.data.title, slug: next.id };
+  }
+}
 ---
 <Base
   title={post.data.title}
   description={post.data.description}
   headings={headings}
   seriesId={post.data.series}
+  nextPost={nextPost}
 >
   <article class="font-body">
-    <h1 class="font-sans text-4xl font-semibold text-ink mb-6">{post.data.title}</h1>
+    <h1 class="mb-3">{post.data.title}</h1>
+    <div class="flex flex-wrap items-center gap-3 mb-8 text-sm text-ink-dim">
+      <time datetime={post.data.pubDate.toISOString().slice(0, 10)}>
+        {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </time>
+      {seriesEntry && (
+        <>
+          <span aria-hidden="true">·</span>
+          <span class="px-2 py-0.5 rounded text-xs font-medium bg-accent/10 text-accent border border-accent/20 uppercase tracking-wider">
+            {seriesEntry.data.title}
+          </span>
+        </>
+      )}
+    </div>
     <div class="text-ink-dim leading-relaxed space-y-4">
       <Content />
     </div>

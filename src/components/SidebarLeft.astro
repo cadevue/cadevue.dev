@@ -32,7 +32,7 @@ const sidebarData = sortedSeries
         <ul class="space-y-2">
           {posts.map((p: Blog) => (
             <li>
-              <a href={'/' + p.id.replace(/\/index$/, '')} class="hover:text-accent">
+              <a href={'/' + p.id.replace(/\/index$/, '')}>
                 {p.data.title}
               </a>
             </li>

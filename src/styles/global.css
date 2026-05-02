@@ -27,6 +27,88 @@
   --pagefind-ui-font: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
 }
 
+/* ─── Article typography ────────────────────────────────────────────────────
+   Scoped to <article>. Edit values freely; see inline hints for options.
+
+   font-size    : var(--text-xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl)
+   font-weight  : 100 200 300 400(normal) 500 600(semibold) 700(bold) 800 900
+   line-height  : var(--leading-none|tight|snug|normal|relaxed|loose)
+   color        : var(--color-ink|ink-dim|accent|accent-deep|bg|bg-deep)
+   text-decoration: none | underline | line-through
+   ────────────────────────────────────────────────────────────────────────── */
+@layer base {
+  article h1 {
+    font-size:       var(--text-4xl);
+    font-weight:     600;
+    line-height:     var(--leading-tight);
+    color:           var(--color-ink);
+    text-decoration: none;
+  }
+  article h2 {
+    font-size:       var(--text-2xl);
+    font-weight:     600;
+    line-height:     var(--leading-snug);
+    color:           var(--color-ink);
+    text-decoration: none;
+  }
+  article h3 {
+    font-size:       var(--text-xl);
+    font-weight:     600;
+    line-height:     var(--leading-snug);
+    color:           var(--color-ink);
+    text-decoration: none;
+  }
+  article p {
+    font-size:       var(--text-lg);
+    font-weight:     400;
+    line-height:     var(--leading-relaxed);
+    color:           var(--color-ink-dim);
+    text-decoration: none;
+  }
+  article span {
+    font-size:       inherit;
+    font-weight:     inherit;
+    line-height:     inherit;
+    color:           inherit;
+    text-decoration: inherit;
+  }
+  article a {
+    font-size:       inherit;
+    font-weight:     inherit;
+    line-height:     inherit;
+    color:           var(--color-accent);
+    text-decoration: underline;
+  }
+  article code {
+    font-size:       var(--text-sm);
+    font-weight:     400;
+    line-height:     inherit;
+    color:           var(--color-ink);
+    text-decoration: none;
+  }
+  article pre {
+    font-size:       var(--text-sm);
+    font-weight:     400;
+    line-height:     var(--leading-relaxed);
+    color:           var(--color-ink);
+    text-decoration: none;
+  }
+  article pre code {
+    font-size:       inherit;
+    font-weight:     inherit;
+    line-height:     inherit;
+    color:           inherit;
+    text-decoration: none;
+  }
+  article pre span {
+    font-size:       inherit;
+    font-weight:     inherit;
+    line-height:     inherit;
+    color:           inherit;
+    text-decoration: inherit;
+  }
+}
+
 @layer base {
   html {
     background: var(--color-bg);

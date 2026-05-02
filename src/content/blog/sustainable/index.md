@@ -4,7 +4,6 @@ description: I share a little about my ideology of expressions.
 pubDate: 2025-11-13
 tags: []
 series: memo
-seriesOrder: 1
 ---
 
 How excited we were upon the clouds <br>

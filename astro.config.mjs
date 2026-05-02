@@ -14,10 +14,6 @@ export default defineConfig({
     remarkPlugins: [remarkReadingTime],
   },
 
-  redirects: {
-    '/about-me': '/',
-  },
-
   vite: {
     plugins: [tailwindcss()]
   },

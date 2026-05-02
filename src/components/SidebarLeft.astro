@@ -20,7 +20,7 @@ const sidebarData = sortedSeries
         const ao = a.data.seriesOrder ?? 0;
         const bo = b.data.seriesOrder ?? 0;
         if (ao !== bo) return ao - bo;
-        return a.data.pubDate.getTime() - b.data.pubDate.getTime();
+        return b.data.pubDate.getTime() - a.data.pubDate.getTime();
       }),
   }))
   .filter(({ posts }: { posts: Blog[] }) => posts.length > 0);

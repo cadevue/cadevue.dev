@@ -31,7 +31,7 @@ if (post.data.series && post.data.seriesOrder !== undefined) {
   seriesId={post.data.series}
   nextPost={nextPost}
 >
-  <article class="font-body">
+  <article class="font-body" data-pagefind-body>
     <h1 class="mb-3">{post.data.title}</h1>
     <div class="flex flex-wrap items-center gap-3 mb-8 text-sm text-ink-dim">
       <time datetime={post.data.pubDate.toISOString().slice(0, 10)}>

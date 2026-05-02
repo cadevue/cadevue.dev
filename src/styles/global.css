@@ -15,16 +15,99 @@
   --font-mono: 'Roboto Mono', ui-monospace, monospace;
 }
 
+
 :root {
-  --pagefind-ui-scale: 0.5;
+  --pagefind-ui-scale: 0.75;
   --pagefind-ui-primary: #FA4430;
   --pagefind-ui-text: #F6F4F1;
   --pagefind-ui-background: #171717;
-  --pagefind-ui-border: rgba(217, 217, 217, 0.2);
+  --pagefind-ui-border: rgba(217, 217, 217, 0.15);
   --pagefind-ui-tag: #1E1E1E;
-  --pagefind-ui-border-width: 1px;
-  --pagefind-ui-border-radius: 8px;
   --pagefind-ui-font: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+}
+
+.pagefind-ui__form::before {
+  opacity: 0.5;
+}
+
+.pagefind-ui__search-input {
+  background-color: #171717 !important;
+  color: #F6F4F1 !important;
+  font-size: var(--text-base) !important;
+  font-weight: 400 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-family: var(--font-sans) !important;
+  padding: 2.5px 4px 2.5px 48px !important;
+}
+
+.pagefind-ui__search-input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.pagefind-ui__search-clear {
+  display: none !important;
+}
+.pagefind-ui__results-area {
+  margin-top: 0.5rem !important;
+}
+.pagefind-ui__message {
+  color: rgba(217, 217, 217, 0.6) !important;
+  font-size: 1rem !important;
+  padding-bottom: 1rem !important;
+}
+.pagefind-ui__result {
+  border: 0px !important;
+  font-family: var(--font-sans) !important;
+  padding: 1rem 0 !important;
+}
+
+.pagefind-ui__result-title {
+  font-size: 1.25rem !important; /* xl (mobile default) */
+  font-weight: 600 !important;
+}
+
+@media (min-width: 640px) {
+  .pagefind-ui__result-title {
+    font-size: 1.5rem !important; /* 2xl from sm and up */
+  }
+}
+.pagefind-ui__result-title a {
+  color: #F6F4F1 !important;
+  text-decoration: none !important;
+  text-decoration-color: var(--color-ink) !important;
+  text-decoration-line: underline !important;
+  text-underline-offset: 4px !important;
+}
+.pagefind-ui__result-title a:hover {
+  color: var(--color-accent) !important;
+  text-decoration-color: var(--color-accent) !important;
+}
+.pagefind-ui__result-excerpt {
+  color: var(--color-ink-dim) !important;
+  font-size: 0.85rem !important;
+  line-height: 1.6 !important;
+  margin-top: 0.35rem !important;
+}
+.pagefind-ui__result-excerpt mark {
+  background: transparent !important;
+  color: #FA4430 !important;
+  font-weight: 600 !important;
+}
+.pagefind-ui__button {
+  background: transparent !important;
+  border: 0px solid rgba(217, 217, 217, 0.2) !important;
+  color: #F6F4F1 !important;
+  border-radius: 8px !important;
+  font-size: 0.85rem !important;
+  margin-top: 1rem !important;
+}
+.pagefind-ui__button:hover {
+  background: rgba(250, 68, 48, 0.1) !important;
+  border-color: #FA4430 !important;
+  color: #FA4430 !important;
 }
 
 /* ─── Article typography ────────────────────────────────────────────────────

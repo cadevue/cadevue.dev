@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-// import Search from 'astro-pagefind/components/Search';
+import Search from 'astro-pagefind/components/Search';
 import ArticlePreview from '../components/ArticlePreview.astro';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -11,10 +11,9 @@ const sorted = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.va
   <div class="space-y-10">
     <div>
       <h1 class="text-3xl sm:text-4xl font-semibold text-ink mb-1">Find Articles</h1>
-      <!-- <p class="text-sm text-ink-dim">Search or browse by tag and series.</p> -->
     </div>
 
-    <!-- <Search id="search" className="pagefind-ui" uiOptions={{ showImages: false }} /> -->
+    <Search id="search" className="pagefind-ui" uiOptions={{ showImages: false }} />
 
     <div id="active-filter" class="hidden text-sm text-ink-dim">
       Filtering by: <span id="filter-label" class="text-accent font-medium"></span>
@@ -34,15 +33,27 @@ const sorted = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.va
     const params = new URLSearchParams(window.location.search);
     const tag = params.get('tag');
     const series = params.get('series');
+    const q = params.get('q');
 
     const filterEl = document.getElementById('active-filter');
     const labelEl = document.getElementById('filter-label');
     const noResults = document.getElementById('no-results');
+    const articleList = document.getElementById('article-list');
     const articles = document.querySelectorAll<HTMLElement>('#article-list article');
 
-    if (!filterEl || !articles.length) return;
+    if (!filterEl) return;
 
-    if (tag || series) {
+    if (q) {
+      // Observer owns hiding article-list; just suppress filter banner
+      filterEl.classList.add('hidden');
+      noResults?.classList.add('hidden');
+      return;
+    }
+
+    articleList?.classList.remove('hidden');
+    if (!articles.length) return;
+
+    if ((tag || series) && !q) {
       filterEl.classList.remove('hidden');
       if (labelEl) labelEl.textContent = tag ? `#${tag}` : `series: ${series}`;
 
@@ -68,5 +79,49 @@ const sorted = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.va
     }
   }
 
-  document.addEventListener('astro:page-load', applyFilter);
+  function initSearchSync() {
+    const initialQuery = new URLSearchParams(window.location.search).get('q') ?? '';
+
+    function waitForInput(cb: (el: HTMLInputElement) => void) {
+      const el = document.querySelector<HTMLInputElement>('.pagefind-ui__search-input');
+      if (el) { cb(el); return; }
+      const obs = new MutationObserver(() => {
+        const el = document.querySelector<HTMLInputElement>('.pagefind-ui__search-input');
+        if (el) { obs.disconnect(); cb(el); }
+      });
+      obs.observe(document.body, { childList: true, subtree: true });
+    }
+
+    waitForInput(input => {
+      // Hide article list once pagefind writes results into #search
+      const searchMount = document.getElementById('search');
+      if (searchMount) {
+        const obs = new MutationObserver(() => {
+          if (new URLSearchParams(window.location.search).get('q')) {
+            document.getElementById('article-list')?.classList.add('hidden');
+          }
+        });
+        obs.observe(searchMount, { childList: true, subtree: true });
+      }
+
+      if (initialQuery) {
+        input.value = initialQuery;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+
+      input.addEventListener('input', () => {
+        const q = input.value.trim();
+        const params = new URLSearchParams(window.location.search);
+        if (q) params.set('q', q); else params.delete('q');
+        const newUrl = params.toString() ? `?${params.toString()}` : window.location.pathname;
+        history.replaceState(null, '', newUrl);
+        if (!q) applyFilter(); // restore article list immediately on clear
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    applyFilter();
+    initSearchSync();
+  });
 </script>

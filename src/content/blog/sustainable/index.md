@@ -7,27 +7,26 @@ series: memo
 seriesOrder: 1
 ---
 
-how excited we were upon the clouds <br>
-said we'd jet through them and build a castle<br>
-not today, but it's okay <br>
-as long as we're sustainable<br>
+How excited we were upon the clouds <br>
+Said we'd jet through them and build a castle<br>
+Not today, but it's okay <br>
+As long as we're sustainable<br>
 
-do you remember about the stars<br>
-said we'd gleam so bright and steal their shine<br>
-maybe tomorrow, but it's okay<br>
-as long as we're sustainable<br>
+Do you remember about the stars<br>
+Said we'd gleam so bright and steal their shine<br>
+Maybe tomorrow, but it's okay<br>
+As long as we're sustainable<br>
 
-we mused about crossing the ocean<br>
-said we'd conquer the tides and catch every fish<br>
-not easy, but it's okay<br>
-as long as we're sustainable<br>
+We mused about crossing the ocean<br>
+Said we'd conquer the tides and catch every fish<br>
+Not easy, but it's okay<br>
+As long as we're sustainable<br>
 
 ... <br>
-this morning I saw clouds crumble in raging gray<br>
-the stars' shine couldn't reach my lingering fog<br>
-the dark ocean climbed and swallowed my face<br>
+This morning I saw clouds crumble in raging gray<br>
+The stars' shine couldn't reach my lingering fog<br>
+The dark ocean climbed and swallowed my face<br>
 
 <!-- i took a different path<br> -->
-what a waste<br>
-we're no longer sustainable
-
+What a waste<br>
+We're no longer sustainable

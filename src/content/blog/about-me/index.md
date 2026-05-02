@@ -11,4 +11,6 @@ Greetings people. Welcome to my page!
 
 My name is Addin Munawwar, working under the nickname `Cadevue`.  &nbsp;I'm currently working as a Security Software Engineer in Indonesia.
 
-Low-level stuff is generally my cup of tea (I love Rust). Here, I plan to write about Windows Internals, Smart Home-IoT, and Game Development. Once in a while, I'll also write about whatever's on my mind. And if I ever find the time, maybe some amateur journalism too.
+Low-level stuff is generally my cup of coffee (I love Rust). Here, I plan to write on topics like Windows Internals, Smart Home-IoT, and Game Development. Once in a while, I'll also write about whatever interests my mind.
+
+Thanks for your presence & enjoy reading!

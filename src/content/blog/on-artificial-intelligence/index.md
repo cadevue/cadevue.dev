@@ -5,7 +5,7 @@ pubDate: 2026-05-02
 tags: []
 series: introduction
 seriesOrder: 2
-draft: true
+draft: false
 ---
 
 Undoubtfully, Artificial Intelligence has sh

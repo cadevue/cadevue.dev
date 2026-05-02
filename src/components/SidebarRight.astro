@@ -10,9 +10,9 @@ interface Props {
 const { headings = [], seriesId, nextPost } = Astro.props;
 const tocItems = headings.filter((h) => h.depth === 2);
 ---
-<aside class="text-base text-ink-dim flex flex-col gap-8">
+<aside class="text-base text-ink-dim flex flex-col gap-8 mb-8">
   {seriesId && (
-    <section>
+    <section class="hidden lg:block">
       <h2 class="mb-3 text-sm uppercase tracking-wider text-ink">on this page</h2>
       <ul class="space-y-2">
         <li>

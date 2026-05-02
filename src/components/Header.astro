@@ -3,12 +3,72 @@ const pathname = Astro.url.pathname;
 const brand = pathname === '/' ? '~' : '~' + pathname.replace(/\/$/, '');
 ---
 <header class="bg-bg-deep">
-  <nav class="mx-auto flex max-w-360 items-center justify-between px-6 py-5">
-    <span class="font-bold font-body text-ink text-lg"><span class="text-accent">カ &nbsp;</span>{brand}</span>
-    <ul class="flex gap-6 text-base">
-      <li><a href="/" class="text-ink hover:text-accent">About</a></li>
-      <li><a href="/articles" class="text-ink hover:text-accent">Articles</a></li>
-      <li><a href="/contact" class="text-ink hover:text-accent">Contact</a></li>
-    </ul>
-  </nav>
+  <div class="mx-auto flex max-w-360 items-center justify-between px-6 py-5">
+    <span class="relative z-10 font-bold font-body text-ink text-lg">
+      <span class="text-accent">カ &nbsp;</span>{brand}
+    </span>
+
+    <nav id="navbar">
+      <button id="menu-button" class="sm:hidden text-ink" aria-label="Toggle menu">
+        <span id="menu-icon" class="text-2xl">☰</span>
+      </button>
+
+      <ul id="menu-list" class="hidden sm:flex gap-6 text-base">
+        <li><a href="/" class="text-ink hover:text-accent">About</a></li>
+        <li><a href="/articles" class="text-ink hover:text-accent">Articles</a></li>
+        <li><a href="/contact" class="text-ink hover:text-accent">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
+
+<script>
+  const OVERLAY_NAV   = ['fixed', 'inset-0', 'z-50', 'flex', 'flex-col', 'items-center', 'justify-center', 'bg-bg-deep'];
+  const OVERLAY_LIST  = ['flex', 'flex-col', 'items-center', 'gap-8', 'text-xl'];
+  const OVERLAY_BTN   = ['absolute', 'top-8', 'right-6'];
+
+  function bindEvents() {
+    const button = document.getElementById('menu-button') as HTMLButtonElement | null;
+    const icon   = document.getElementById('menu-icon')   as HTMLElement | null;
+    const menu   = document.getElementById('menu-list')   as HTMLElement | null;
+    const nav    = document.getElementById('navbar')       as HTMLElement | null;
+
+    if (!button || !icon || !menu || !nav) return;
+
+    let isOpen = false;
+
+    function open() {
+      isOpen = true;
+      icon.textContent = '✕';
+      menu.classList.remove('hidden');
+      nav.classList.add(...OVERLAY_NAV);
+      menu.classList.add(...OVERLAY_LIST);
+      button.classList.add(...OVERLAY_BTN);
+    }
+
+    function close() {
+      isOpen = false;
+      icon.textContent = '☰';
+      menu.classList.add('hidden');
+      nav.classList.remove(...OVERLAY_NAV);
+      menu.classList.remove(...OVERLAY_LIST);
+      button.classList.remove(...OVERLAY_BTN);
+    }
+
+    button.addEventListener('click', () => isOpen ? close() : open());
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 640) {
+        nav.classList.remove(...OVERLAY_NAV);
+        menu.classList.remove('hidden', ...OVERLAY_LIST);
+        button.classList.remove(...OVERLAY_BTN);
+        icon.textContent = '☰';
+        isOpen = false;
+      } else if (!isOpen) {
+        menu.classList.add('hidden');
+      }
+    });
+  }
+
+  document.addEventListener('astro:page-load', bindEvents);
+</script>

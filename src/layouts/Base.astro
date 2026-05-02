@@ -43,7 +43,7 @@ const { title, description, headings, seriesId, nextPost } = Astro.props;
           <main class="min-w-0">
             <slot />
           </main>
-          <div class="hidden lg:block lg:sticky lg:top-10 lg:self-start">
+          <div class="lg:sticky lg:top-10 lg:self-start">
             <SidebarRight headings={headings} seriesId={seriesId} nextPost={nextPost} />
           </div>
         </div>

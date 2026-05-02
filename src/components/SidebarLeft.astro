@@ -16,7 +16,12 @@ const sidebarData = sortedSeries
     series: s,
     posts: allPosts
       .filter((p: Blog) => p.data.series === s.id)
-      .sort((a: Blog, b: Blog) => (a.data.seriesOrder ?? Infinity) - (b.data.seriesOrder ?? Infinity)),
+      .sort((a: Blog, b: Blog) => {
+        const ao = a.data.seriesOrder ?? 0;
+        const bo = b.data.seriesOrder ?? 0;
+        if (ao !== bo) return ao - bo;
+        return a.data.pubDate.getTime() - b.data.pubDate.getTime();
+      }),
   }))
   .filter(({ posts }: { posts: Blog[] }) => posts.length > 0);
 ---
